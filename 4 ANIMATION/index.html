@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Animation, Transition, and Transformation Example</title>
+    <style>
+        .loader {
+            height: 50px;
+            width: 50px;
+            border: 5px solid rgba(215, 202, 202, 0.5);
+            border-radius: 50%;
+            border-top-color: blue;
+            animation: spin 1s linear infinite;
+            margin: 50px;
+        }
+
+        @keyframes spin {
+            0% {transform: rotate(0deg)}
+            100% {transform:rotate(360deg)}
+        }
+
+        .hover-button {
+            background-color: rgb(193, 150, 31);
+            color: azure;
+            border: none;
+            margin: 50px;
+            width: 100px;
+            height: 30px;
+            transition: 0.5s ease;
+            border-radius: 5px;
+        }
+
+        .hover-button:hover {
+            background-color: brown;
+            border-radius: 0px;
+        }
+
+        .zoom-image{
+            transition: 2s ease;
+        }
+        .zoom-image:hover {      
+            transform: rotate(360deg);
+        }
+
+
+
+
+    </style>
+</head>
+<body>
+    <div class="loader"></div>
+    <button class="hover-button">Hover over me</button>
+    <br>
+    <img src="https://via.placeholder.com/200" alt="Zoom on hover" class="zoom-image">
+</body>
+</html>
