@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DOM Manipulation Example</title>
+    <style>
+        /* Embedded CSS */
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f0f0f0;
+        }
+
+        #content {
+            text-align: center;
+        }
+
+        p {
+            color: #333;
+            font-size: 18px;
+        }
+
+        .highlight {
+            color: #d9534f;
+            font-weight: bold;
+        }
+
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            border: none;
+            background-color: #007bff;
+            color: #fff;
+            border-radius: 5px;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="content">
+        <p id="text">Click the button to change my style and text!</p>
+        <button onclick="changeText()">Click Me</button>
+    </div>
+
+    <script>
+        // Embedded JavaScript for DOM Manipulation
+        function changeText() {
+            var paragraph = document.getElementById("text");
+            paragraph.textContent = "The text has changed!";
+            paragraph.classList.toggle("highlight"); // Adds/Removes the "highlight" class
+        }
+    </script>
+</body>
+
+</html>
