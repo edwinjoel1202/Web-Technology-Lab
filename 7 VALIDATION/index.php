@@ -1,66 +1,45 @@
 <?php
-$error_message = "";
-$success_message = "";
+// Define regex patterns
+$name_pattern = "/^[a-zA-Z ]+$/";
+$email_pattern = "/^[\w\-\.]+@([\w\-]+\.)+[\w]{2,4}$/";
+$phone_pattern = "/^[0-9]{10}$/";
 
-// Check if the form is submitted
+// Initialize error messages
+$name_error = $email_error = $phone_error = "";
+
+// Check if form data is posted
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    // Get form data
-    $name = $_POST['name'];
-    $email = $_POST['email'];
-    $phone = $_POST['phone'];
-
-    // Regular expressions for validation
-    $name_pattern = "/^[a-zA-Z ]+$/";               // Only letters and spaces allowed
-    $email_pattern = "/^[\w\-\.]+@([\w\-]+\.)+[\w]{2,4}$/";  // Simple email format
-    $phone_pattern = "/^[0-9]{10}$/";               // 10-digit phone number
-
+    $name = trim($_POST['name']);
+    $email = trim($_POST['email']);
+    $phone = trim($_POST['phone']);
+    
     // Validate name
-    if (empty($name) || !preg_match($name_pattern, $name)) {
-        $error_message = "Please enter a valid name (only letters and spaces allowed).";
+    if (!preg_match($name_pattern, $name)) {
+        $name_error = "Invalid name. Only letters and spaces are allowed.";
     }
+
     // Validate email
-    elseif (empty($email) || !preg_match($email_pattern, $email)) {
-        $error_message = "Please enter a valid email address.";
+    if (!preg_match($email_pattern, $email)) {
+        $email_error = "Invalid email format.";
     }
+
     // Validate phone number
-    elseif (empty($phone) || !preg_match($phone_pattern, $phone)) {
-        $error_message = "Please enter a valid 10-digit phone number.";
-    } 
-    else {
-        // If all validations pass, show success message
-        $success_message = "Form submitted successfully!";
+    if (!preg_match($phone_pattern, $phone)) {
+        $phone_error = "Invalid phone number. Only 10 digits are allowed.";
+    }
+
+    // Check if there are any errors
+    if ($name_error || $email_error || $phone_error) {
+        echo "<h3>Errors:</h3>";
+        echo "<p>$name_error</p>";
+        echo "<p>$email_error</p>";
+        echo "<p>$phone_error</p>";
+    } else {
+        // If no errors, display success message
+        echo "<h3>Form submitted successfully!</h3>";
+        echo "<p>Name: $name</p>";
+        echo "<p>Email: $email</p>";
+        echo "<p>Phone: $phone</p>";
     }
 }
 ?>
-
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Simple Form Validation with PHP</title>
-</head>
-<body>
-  <h2>Form Validation</h2>
-
-  <!-- Display validation errors -->
-  <?php if (!empty($error_message)) : ?>
-    <div style="color:red;"><?php echo $error_message; ?></div>
-  <?php endif; ?>
-
-  <!-- Simple HTML Form -->
-  <form method="POST" action="">
-    Name: <input type="text" name="name" value="<?php echo isset($_POST['name']) ? $_POST['name'] : ''; ?>"><br><br>
-    Email: <input type="text" name="email" value="<?php echo isset($_POST['email']) ? $_POST['email'] : ''; ?>"><br><br>
-    Phone: <input type="text" name="phone" value="<?php echo isset($_POST['phone']) ? $_POST['phone'] : ''; ?>"><br><br>
-    <input type="submit" name="submit" value="Submit">
-  </form>
-
-  <?php
-  // Display successful message if form is validated
-  if (!empty($success_message)) {
-    echo "<div style='color:green;'>" . $success_message . "</div>";
-  }
-  ?>
-</body>
-</html>
